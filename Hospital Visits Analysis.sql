@@ -1,0 +1,10 @@
+CREATE DATABASE HospitalDW
+USE HospitalDW 
+
+CREATE TABLE DIMTime (TimeID INT PRIMARY KEY NOT NULL , Year date , Day date , Hour time) ;
+CREATE TABLE DIMPatient (PatientID INT PRIMARY KEY NOT NULL , Name VARCHAR (100) NOT NULL , Phone INT ,Address VARCHAR (100) ) ;
+CREATE TABLE DIMDepartment (DEPID INT PRIMARY KEY NOT NULL , DepName VARCHAR (100) );
+CREATE TABLE DIMDoctor (DoctorID INT PRIMARY KEY NOT NULL , DEPID INT FOREIGN KEY REFERENCES DIMDepartment, 
+                         DocName VARCHAR (100) , Phone INT , Address VARCHAR(100) );
+CREATE TABLE FACTHospitalVisits (TimeID INT FOREIGN  KEY REFERENCES DIMTime , PatientID INT FOREIGN KEY REFERENCES DIMPatient,
+                                  DoctorID INT FOREIGN KEY REFERENCES DIMDoctor , VisitCount INT , TotalCHarge INT , Profit INT);
